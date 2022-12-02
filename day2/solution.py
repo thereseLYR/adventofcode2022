@@ -65,7 +65,7 @@ def part2(input):
       roundScore = (opponentMoveIndex + 1) + 3
     else:
       playerMoveIndex = (opponentMoveIndex + 2) % 3
-      roundScore = playerMoveIndex # all other outcomes are loss
+      roundScore = playerMoveIndex + 1 # all other outcomes are loss
     score += roundScore
   print(score) # expected 10334
 
