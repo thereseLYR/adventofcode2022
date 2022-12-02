@@ -52,11 +52,7 @@ def part2(input):
     opponentPossibilities = ['A', 'B', 'C']
     opponentMove = roundData[0]
     suggestedOutcome = roundData[1]
-
     opponentMoveIndex = opponentPossibilities.index(opponentMove)
-  
-    print('roundData:', roundData)
-    # print('ORIGINAL roundShapeScore:', roundShapeScore)
     
     if suggestedOutcome == 'Z': # suggest to win
       playerMoveIndex = (opponentMoveIndex + 1) % 3
@@ -68,8 +64,6 @@ def part2(input):
       roundScore = playerMoveIndex + 1 # all other outcomes are loss
     score += roundScore
   print(score) # expected 10334
-
-    
 
 if __name__ == "__main__":
     part1(formattedRoundRecommendationsArr)
