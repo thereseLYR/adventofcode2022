@@ -3,7 +3,7 @@
 
 outcomesMap = {
   'win': [['A', 'Y'], ['B', 'Z'], ['C', 'X']],
-  'draw': [['A, X'], ['B', 'Y'], ['C', 'Z']],
+  'draw': [['A', 'X'], ['B', 'Y'], ['C', 'Z']],
 }
 
 shapeScoreMap = {
