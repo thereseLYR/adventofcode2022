@@ -6,6 +6,7 @@ data = inputFile.read().split('\n\n')
 # print(data)
 
 startDrawing = data[0]
+
 rearragementProcedure = data[1]
 rearragementProcedure = rearragementProcedure.split('\n')
 
@@ -39,7 +40,7 @@ def generateStacks(drawingStr):
 
   return stacksArr
 
-def moveCrates(numCrates, startLoc, endLoc, stacksArr):
+def moveSingleCrates(numCrates, startLoc, endLoc, stacksArr):
   i = 0
   holding = None
   while i < numCrates:
@@ -47,13 +48,23 @@ def moveCrates(numCrates, startLoc, endLoc, stacksArr):
     stacksArr[endLoc].append(holding)
     i += 1
 
+def moveMultipleCrates(numCrates, startLoc, endLoc, stacksArr):
+  i = 0
+  holding = deque()
+  while i < numCrates:
+    holding.append(stacksArr[startLoc].pop())
+    i += 1
+
+  for item in reversed(holding):
+    stacksArr[endLoc].append(item)
+
 def part1(input):
   stacks = generateStacks(startDrawing)
 
   for line in rearragementProcedure:
     # use regExp to find all numbers in a string
     numCrates, fromLocation, toLocation = re.findall(r'\b\d+\b', line)
-    moveCrates(int(numCrates), int(fromLocation) - 1, int(toLocation) - 1, stacks)  
+    moveSingleCrates(int(numCrates), int(fromLocation) - 1, int(toLocation) - 1, stacks)  
   
   resultStr = ''
   for i in stacks:
@@ -63,6 +74,19 @@ def part1(input):
   return
 
 def part2(input):
+  stacks = generateStacks(startDrawing)
+
+  for line in rearragementProcedure:
+    # use regExp to find all numbers in a string
+    numCrates, fromLocation, toLocation = re.findall(r'\b\d+\b', line)
+
+    moveMultipleCrates(int(numCrates), int(fromLocation) - 1, int(toLocation) - 1, stacks)
+  
+  resultStr = ''
+  for i in stacks:
+    resultStr += i.pop()
+  
+  print(resultStr) # WJVRLSJJT
   return
 
 if __name__ == "__main__":
