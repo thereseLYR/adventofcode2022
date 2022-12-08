@@ -62,7 +62,7 @@ def part2(input):
   for dir in dirDict.values():
     if dir >= targetFileSize:
       possibleDirectories.append(dir)
-  print(min(possibleDirectories))
+  print(min(possibleDirectories)) # 549173
   return
 
 if __name__ == "__main__":
