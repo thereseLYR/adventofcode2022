@@ -1,6 +1,6 @@
-from functools import reduce
+import copy
 
-inputFile = open("day9\input.txt", 'r')
+inputFile = open("day9\input2.txt", 'r')
 data = inputFile.read().split('\n')
 # print(data)
 
@@ -8,7 +8,6 @@ data = inputFile.read().split('\n')
 # instructions for the head are given as lines
 # figure out where the tail moves
 # size of the grid is unknown
-headLoc, tailLoc = [0, 0], [0, 0]
 tailLocSet = set()
 
 def isDiagonal(head, tail):
@@ -58,24 +57,24 @@ def moveHeadDown(head, tail):
   # print("after move down:", head, tail)
   return head, tail
 
+def moveOnce(direction, head, tail):
+  if direction == "R":
+    moveHeadR(head, tail)
+  elif direction == "L":
+    moveHeadL(head, tail)
+  elif direction == "U":
+    moveHeadUp(head, tail)
+  elif direction == "D":
+    moveHeadDown(head, tail)
+  return head, tail
+
 def part1(input):
-  print("initial positions are:", headLoc, tailLoc)
+  # print("initial positions are:", headLoc, tailLoc)
+  headLoc, tailLoc = [0, 0], [0, 0]
   for line in input:
     [direction, steps] = line.split(" ")
     for i in range(int(steps)):
-      
-      if direction == "R":
-        moveHeadR(headLoc, tailLoc)
-      elif direction == "L":
-        moveHeadL(headLoc, tailLoc)
-      elif direction == "U":
-        moveHeadUp(headLoc, tailLoc)
-      elif direction == "D":
-        moveHeadDown(headLoc, tailLoc)
-
-      # print("\nheadLoc after move is:", headLoc)
-      # print("tailLoc after move is:", tailLoc)
-
+      moveOnce(direction, headLoc, tailLoc)
       tailLocStr = str(tailLoc[0]) + str(tailLoc[1])
       tailLocSet.add(tailLocStr)
       # print(len(tailLocSet))
