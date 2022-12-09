@@ -62,6 +62,10 @@ def part1(input):
   return
 
 def part2(input):
+  r = Rope(10)
+  r.moveAllInstr(input)
+  # print(r.tailPositions)
+  print(len(r.tailPositions)) # 2691
   return
 
 if __name__ == "__main__":
