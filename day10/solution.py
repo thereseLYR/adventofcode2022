@@ -13,7 +13,7 @@ for line in data:
 def generateCycles(list):
   cycleCounter, xVal = [ None ], 1
   # shove the current xVal into a list every cycle
-  #that way, we can pull the xVal at particular cycles by calling the index of xVal
+  #that way, we can pull the xVal at the start of particular cycles by calling the index of xVal
   for instr in list:
     command = instr[0]
     if command == "noop":
@@ -34,6 +34,22 @@ def part1(input):
   return
 
 def part2(input):
+  cycles, finalX = generateCycles(instrList)
+  # xVal controls the horizontal position of a sprite
+  finalImage = ''
+  for i in range(1, len(cycles)):
+    # modulate spriteMiddle to keep its value < 40
+    spriteMiddle = cycles[i] % 40
+    spriteRange = [spriteMiddle - 1, spriteMiddle, spriteMiddle + 1]
+    # need to modulate i horizontal position too, and subtract 1 to account for position index in the final image string
+    if (i % 40 - 1) in spriteRange:
+      finalImage += '#'
+    else:
+      finalImage += '.'
+    # add a newline every 40 cycles
+    if i % 40 == 0:
+      finalImage += '\n'
+  print(finalImage) # PHLHJGZA
   return
 
 if __name__ == "__main__":
