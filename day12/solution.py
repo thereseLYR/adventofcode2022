@@ -41,30 +41,58 @@ def neighbors(i, j):
         if height(grid[ii][jj]) <= height(grid[i][j]) + 1:
             yield ii, jj
 
+def neighbors2(i, j):
+    for di, dj in [[1, 0], [-1, 0], [0, 1], [0, -1]]:
+        ii = i + di
+        jj = j + dj
 
-# Dijkstra's
-visited = [[False] * numCols for _ in range(numRows)]
-heap = [(0, start[0], start[1])]
+        # check if neighbors are in grid
+        if not (0 <= ii < numRows and 0 <= jj < numCols):
+            continue
+        
+        # check if neighbors' height is reachable
+        if height(grid[ii][jj]) >= height(grid[i][j]) - 1:
+            yield ii, jj
 
-while True:
-    steps, i, j = heappop(heap)
-
-    if visited[i][j]:
-        continue
-    visited[i][j] = True
-
-    if (i, j) == end:
-        print(steps)
-        break
-
-    for ii, jj in neighbors(i, j):
-        heappush(heap, (steps + 1, ii, jj))
 
 def part1(input):
-  return
+    # Dijkstra's
+    visited = [[False] * numCols for _ in range(numRows)]
+    heap = [(0, start[0], start[1])]
+
+    while True:
+        steps, i, j = heappop(heap)
+
+        if visited[i][j]:
+            continue
+        visited[i][j] = True
+
+        if (i, j) == end:
+            print(steps)
+            break
+
+        for ii, jj in neighbors(i, j):
+            heappush(heap, (steps + 1, ii, jj))
 
 def part2(input):
-  return
+    # since there are multiple start locations, it is more economical to start from the 'end'
+    # and terminate at a 'start' point
+    visited = [[False] * numCols for _ in range(numRows)]
+    heap = [(0, end[0], end[1])]
+
+    while True:
+        steps, i, j = heappop(heap)
+
+        if visited[i][j]:
+            continue
+        visited[i][j] = True
+
+        if height(grid[i][j]) == 0:
+            print(steps)
+            break
+
+        for ii, jj in neighbors2(i, j):
+            heappush(heap, (steps + 1, ii, jj))
 
 if __name__ == "__main__":
     part1(data)
